@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
-import { Pizza } from '../../_interfaces/pizza.interface';
+import { PizzaItemComponent } from '../../components/pizza-item/pizza-item.component';
 
-import { JsonPipe } from '@angular/common';
+import { Pizza } from '../../_interfaces/pizza.interface';
 
 @Component({
   selector: 'products',
-  imports: [JsonPipe],
+  imports: [PizzaItemComponent],
   providers: [PizzasService],
   template: `
     <div class="products">
@@ -18,10 +18,9 @@ import { JsonPipe } from '@angular/common';
       <div class="products__list">
         @if (!pizzas.length) {
         <div>No pizzas, add one to get started.</div>
-        } @else {
-        {{ pizzas | json }}
-        <!-- <pizza-item *ngFor="let pizza of pizzas" [pizza]="pizza"></pizza-item> -->
-        }
+        } @else { @for (pizza of pizzas; track pizza.id) {
+        <pizza-item [pizza]="pizza"></pizza-item>
+        } }
       </div>
     </div>
   `,

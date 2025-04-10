@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable } from 'rxjs';
 
 import { environment } from '../../environments/environment';
-import { handleError } from '../_utils/utils';
+import { handleError } from '../_utils';
 
 import { Topping } from '../_interfaces/topping.interface';
 
