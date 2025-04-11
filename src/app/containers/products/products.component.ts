@@ -14,7 +14,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
   template: `
     <div class="products">
       <div class="products__new">
-        <a class="btn btn__ok" routerLink="./new"> New Pizza </a>
+        <a class="btn btn__ok" [routerLink]="['new']"> New Pizza </a>
       </div>
       <div class="products__list">
         @if (!pizzas.length) {
