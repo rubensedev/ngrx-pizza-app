@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { PizzaDisplayComponent } from '../pizza-display/pizza-display.component';
@@ -9,7 +9,6 @@ import { Pizza } from '../../_interfaces/pizza.interface';
   selector: 'pizza-item',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, PizzaDisplayComponent],
-  inputs: ['pizza'],
   template: `
     <div class="pizza-item">
       <a [routerLink]="['/products', pizza.id]">
@@ -48,5 +47,5 @@ import { Pizza } from '../../_interfaces/pizza.interface';
   `,
 })
 export class PizzaItemComponent {
-  pizza!: Pizza;
+  @Input({ required: true }) pizza!: Pizza;
 }

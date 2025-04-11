@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 import { DROP_INGREDIENTS } from '../../_utils';
 
@@ -7,7 +7,6 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 @Component({
   selector: 'pizza-display',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['pizza'],
   animations: [DROP_INGREDIENTS],
   template: `
     <div class="pizza-display">
@@ -49,5 +48,5 @@ import { Pizza } from '../../_interfaces/pizza.interface';
   `,
 })
 export class PizzaDisplayComponent {
-  pizza!: Pizza;
+  @Input({ required: true }) pizza!: Pizza;
 }
