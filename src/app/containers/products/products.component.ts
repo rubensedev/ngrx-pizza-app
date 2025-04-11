@@ -1,4 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
@@ -8,7 +9,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 
 @Component({
   selector: 'products',
-  imports: [PizzaItemComponent],
+  imports: [RouterLink, PizzaItemComponent],
   providers: [PizzasService],
   template: `
     <div class="products">
