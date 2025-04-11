@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
@@ -57,7 +57,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 export class ProductsComponent implements OnInit {
   pizzas: Pizza[] = [];
 
-  constructor(private readonly pizzasService: PizzasService) {}
+  private readonly pizzasService = inject(PizzasService);
 
   ngOnInit(): void {
     this.pizzasService
