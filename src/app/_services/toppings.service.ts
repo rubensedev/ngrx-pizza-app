@@ -11,7 +11,7 @@ import { Topping } from '../_interfaces/topping.interface';
 @Injectable()
 export class ToppingsService {
   private readonly http = inject(HttpClient);
-  private readonly API_URL = environment.config.API_URL_PIZZAS;
+  private readonly API_URL = environment.config.API_URL_TOPPINGS;
 
   getToppings(): Observable<Topping[]> {
     return this.http.get<Topping[]>(this.API_URL).pipe(catchError(handleError));
