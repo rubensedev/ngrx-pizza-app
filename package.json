@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "concurrently -n \"ANGULAR,API\" -c \"cyan,green\" \"ng serve\" \"npm run db\"",
-    "build": "ng build",
+    "build:development": "ng build --configuration development",
+    "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "db": "json-server --watch db.json --delay 1000"
