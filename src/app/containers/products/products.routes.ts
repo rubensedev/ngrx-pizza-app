@@ -1,11 +1,15 @@
 import { Routes } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
+import { provideState } from '@ngrx/store';
+
+import { pizzasFeature } from '../../_store/reducers/pizzas.reducers';
+
 export const PRODUCTS_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    providers: [provideHttpClient()],
+    providers: [provideHttpClient(), provideState(pizzasFeature)],
     loadComponent: () =>
       import('./products.component').then((x) => x.ProductsComponent),
   },
