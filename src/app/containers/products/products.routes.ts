@@ -1,15 +1,24 @@
 import { Routes } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
-import { provideState } from '@ngrx/store';
+import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
+import * as PizzasEffects from '../../_store/effects/pizzas.effects';
 
-import { pizzasFeature } from '../../_store/reducers/pizzas.reducers';
+import { PizzasService } from '../../_services/pizzas.service';
+
+import { provideFeature } from '../../_utils';
 
 export const PRODUCTS_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    providers: [provideHttpClient(), provideState(pizzasFeature)],
+    providers: [
+      provideHttpClient(),
+      provideFeature(PizzasReducers.pizzasFeature, {
+        effects: [{ effect: PizzasEffects.loadPizzasEffects }],
+        providers: [PizzasService],
+      }),
+    ],
     loadComponent: () =>
       import('./products.component').then((x) => x.ProductsComponent),
   },

@@ -5,7 +5,8 @@ import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
-import { pizzasFeature } from '../../_store/reducers/pizzas.reducers';
+import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
+import * as PizzasActtions from '../../_store/actions/pizzas.actions';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
@@ -68,6 +69,7 @@ export class ProductsComponent implements OnInit {
   private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
-    this.pizzas$ = this.store.select(pizzasFeature.selectPizzas);
+    this.pizzas$ = this.store.select(PizzasReducers.pizzasFeature.selectPizzas);
+    this.store.dispatch(PizzasActtions.loadPizzas());
   }
 }

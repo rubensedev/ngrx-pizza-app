@@ -8,7 +8,6 @@ import { provideRouter } from '@angular/router';
 
 // ngrx
 import { provideStore } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
 import { ROUTES } from './app.routes';
@@ -18,7 +17,6 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(ROUTES),
     provideStore(),
-    provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
     provideAnimations(),
   ],
