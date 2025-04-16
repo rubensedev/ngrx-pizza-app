@@ -1,10 +1,17 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { createEntityAdapter } from '@ngrx/entity';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as PizzasActions from '../actions/pizzas.actions';
 
 import { Pizza } from '../../../_interfaces/pizza.interface';
-import { PizzaState } from '../../../_interfaces/pizza-state.interface';
+export interface ProductsState {
+  pizzas: PizzaState;
+}
+export interface PizzaState extends EntityState<Pizza> {
+  loading: boolean;
+  loaded: boolean;
+  error: any;
+}
 
 export const adapter = createEntityAdapter<Pizza>();
 

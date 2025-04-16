@@ -13,7 +13,6 @@ import { PizzasService } from '../../_services/pizzas.service';
 import { PizzaItemComponent } from '../../components/pizza-item/pizza-item.component';
 
 import { Pizza } from '../../_interfaces/pizza.interface';
-import { ProductsState } from '../../_interfaces/products-state.interface';
 
 @Component({
   selector: 'products',
@@ -66,7 +65,7 @@ import { ProductsState } from '../../_interfaces/products-state.interface';
 export class ProductsComponent implements OnInit {
   pizzas$!: Observable<Pizza[]>;
 
-  private readonly store = inject(Store<ProductsState>);
+  private readonly store = inject(Store<PizzasReducers.ProductsState>);
 
   ngOnInit(): void {
     this.pizzas$ = this.store.select(PizzasReducers.pizzasFeature.selectAll);
