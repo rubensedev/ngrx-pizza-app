@@ -5,7 +5,7 @@ import { catchError, filter, map, of, switchMap } from 'rxjs';
 import { Actions, createEffect } from '@ngrx/effects';
 import * as PizzasActions from '../actions/pizzas.actions';
 
-import { PizzasService } from '../../_services/pizzas.service';
+import { PizzasService } from '../../../_services/pizzas.service';
 
 export const loadPizzasEffects = createEffect(
   () => {

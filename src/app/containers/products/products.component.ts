@@ -5,8 +5,8 @@ import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
-import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
-import * as PizzasActtions from '../../_store/actions/pizzas.actions';
+import * as PizzasReducers from '../../_store/pizzas/reducers/pizzas.reducers';
+import * as PizzasActtions from '../../_store/pizzas/actions/pizzas.actions';
 
 import { PizzasService } from '../../_services/pizzas.service';
 

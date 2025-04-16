@@ -3,8 +3,8 @@ import { createEntityAdapter } from '@ngrx/entity';
 
 import * as PizzasActions from '../actions/pizzas.actions';
 
-import { Pizza } from '../../_interfaces/pizza.interface';
-import { PizzaState } from '../../_interfaces/pizza-state.interface';
+import { Pizza } from '../../../_interfaces/pizza.interface';
+import { PizzaState } from '../../../_interfaces/pizza-state.interface';
 
 export const adapter = createEntityAdapter<Pizza>();
 
