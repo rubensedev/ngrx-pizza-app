@@ -13,9 +13,9 @@ export interface PizzaState extends EntityState<Pizza> {
   error: any;
 }
 
-export const adapter = createEntityAdapter<Pizza>();
+export const pizzaAdapter = createEntityAdapter<Pizza>();
 
-const initialState: PizzaState = adapter.getInitialState({
+const initialState: PizzaState = pizzaAdapter.getInitialState({
   loading: false,
   loaded: false,
   error: null,
@@ -32,7 +32,7 @@ export const pizzasFeature = createFeature({
     })),
 
     on(PizzasActions.loadPizzasSuccess, (state, { pizzas }) =>
-      adapter.setAll(pizzas, {
+      pizzaAdapter.setAll(pizzas, {
         ...state,
         loading: false,
         loaded: true,
@@ -48,6 +48,6 @@ export const pizzasFeature = createFeature({
   ),
 
   extraSelectors: ({ selectPizzasState }) => ({
-    ...adapter.getSelectors(selectPizzasState),
+    ...pizzaAdapter.getSelectors(selectPizzasState),
   }),
 });

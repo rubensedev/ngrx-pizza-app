@@ -8,8 +8,6 @@ import { Store } from '@ngrx/store';
 import * as PizzasReducers from '../../_store/pizzas/reducers/pizzas.reducers';
 import * as PizzasActtions from '../../_store/pizzas/actions/pizzas.actions';
 
-import { PizzasService } from '../../_services/pizzas.service';
-
 import { PizzaItemComponent } from '../../components/pizza-item/pizza-item.component';
 
 import { Pizza } from '../../_interfaces/pizza.interface';
@@ -17,7 +15,6 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 @Component({
   selector: 'products',
   imports: [RouterLink, AsyncPipe, PizzaItemComponent],
-  providers: [PizzasService],
   template: `
     <div class="products">
       <div class="products__new">
