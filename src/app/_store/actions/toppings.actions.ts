@@ -12,3 +12,8 @@ export const loadToppingsFail = createAction(
   '[Toppings] Load Toppings Fail',
   props<{ error: any }>()
 );
+
+export const visualiseToppings = createAction(
+  '[Toppings] Visualise Toppings',
+  props<{ selectedToppingsIds: Topping['id'][] }>()
+);

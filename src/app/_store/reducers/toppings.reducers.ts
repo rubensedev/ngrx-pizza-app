@@ -9,6 +9,7 @@ export interface ToppingState extends EntityState<Topping> {
   loading: boolean;
   loaded: boolean;
   error: any;
+  selectedToppingsIds: Topping['id'][];
 }
 
 export const toppingAdapter = createEntityAdapter<Topping>();
@@ -17,6 +18,7 @@ const initialState: ToppingState = toppingAdapter.getInitialState({
   loading: false,
   loaded: false,
   error: null,
+  selectedToppingsIds: [],
 });
 
 export const toppingsFeature = createFeature({
@@ -42,6 +44,11 @@ export const toppingsFeature = createFeature({
       loading: false,
       loaded: false,
       error,
+    })),
+
+    on(ToppingsActions.visualiseToppings, (state, { selectedToppingsIds }) => ({
+      ...state,
+      selectedToppingsIds,
     }))
   ),
 
