@@ -139,8 +139,8 @@ import { Topping } from '../../_interfaces/topping.interface';
 export class PizzaFormComponent implements OnChanges {
   exists = false;
 
-  @Input({ required: true }) pizza: Pizza | null = null;
-  @Input({ required: true }) toppings!: Topping[];
+  @Input({ required: true }) pizza: Pizza | null = {};
+  @Input({ required: true }) toppings: Topping[] | null = [];
 
   @Output() selected = new EventEmitter<Topping['id'][]>();
   @Output() create = new EventEmitter<Pizza>();

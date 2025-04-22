@@ -68,7 +68,7 @@ import { Topping } from '../../_interfaces/topping.interface';
   `,
 })
 export class PizzaToppingsComponent implements ControlValueAccessor {
-  @Input() toppings: Topping[] = [];
+  @Input() toppings: Topping[] | null = [];
 
   value: Topping[] = [];
 

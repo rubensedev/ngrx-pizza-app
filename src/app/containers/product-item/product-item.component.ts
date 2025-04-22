@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { ProductsState } from '../../_store/reducers';
 import * as PizzasSelectors from '../../_store/selectors/pizzas.selectors';
 import * as ToppingsActions from '../../_store/actions/toppings.actions';
+import * as ToppingsReducers from '../../_store/reducers/toppings.reducers';
 
 // Components
 import { PizzaDisplayComponent } from '../../components/pizza-display/pizza-display.component';
@@ -23,7 +24,7 @@ import { Topping } from '../../_interfaces/topping.interface';
     <div class="product-item">
       <pizza-form
         [pizza]="pizza$ | async"
-        [toppings]="toppings"
+        [toppings]="toppings$ | async"
         (selected)="onSelect($event)"
         (create)="onCreate($event)"
         (update)="onUpdate($event)"
@@ -46,18 +47,22 @@ import { Topping } from '../../_interfaces/topping.interface';
 export class ProductItemComponent implements OnInit {
   pizza$!: Observable<Pizza>;
   visualise: Pizza = {};
-  toppings!: Topping[];
+  toppings$!: Observable<Topping[]>;
 
   private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
+    this.store.dispatch(ToppingsActions.loadTopppings());
+
     this.pizza$ = this.store
       .select(PizzasSelectors.selectPizza)
       .pipe(filter((pizza): pizza is Pizza => !!pizza));
     // Which one is better?
     // this.pizza$ = this.store.select(PizzasSelectors.selectPizza) as Observable<Pizza>;
 
-    this.store.dispatch(ToppingsActions.loadTopppings());
+    this.toppings$ = this.store.select(
+      ToppingsReducers.toppingsFeature.selectAll
+    );
   }
 
   onSelect(event: Topping['id'][]) {}
