@@ -5,9 +5,9 @@ import { filter, Observable } from 'rxjs';
 
 // Store
 import { Store } from '@ngrx/store';
-import * as PizzasReducers from '../../_store/pizzas/reducers/pizzas.reducers';
-import * as PizzasSelectors from '../../_store/pizzas/selectors/pizzas.selectors';
-import * as ToppingsActions from '../../_store/toppings/actions/toppings.actions';
+import { ProductsState } from '../../_store/reducers';
+import * as PizzasSelectors from '../../_store/selectors/pizzas.selectors';
+import * as ToppingsActions from '../../_store/actions/toppings.actions';
 
 // Components
 import { PizzaDisplayComponent } from '../../components/pizza-display/pizza-display.component';
@@ -48,7 +48,7 @@ export class ProductItemComponent implements OnInit {
   visualise: Pizza = {};
   toppings!: Topping[];
 
-  private readonly store = inject(Store<PizzasReducers.ProductsState>);
+  private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
     this.pizza$ = this.store

@@ -3,9 +3,9 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as ToppingsActions from '../actions/toppings.actions';
 
-import { Topping } from '../../../_interfaces/topping.interface';
+import { Topping } from '../../_interfaces/topping.interface';
 
-export interface ToppingsState extends EntityState<Topping> {
+export interface ToppingState extends EntityState<Topping> {
   loading: boolean;
   loaded: boolean;
   error: any;
@@ -13,7 +13,7 @@ export interface ToppingsState extends EntityState<Topping> {
 
 export const toppingAdapter = createEntityAdapter<Topping>();
 
-const initialState: ToppingsState = toppingAdapter.getInitialState({
+const initialState: ToppingState = toppingAdapter.getInitialState({
   loading: false,
   loaded: false,
   error: null,

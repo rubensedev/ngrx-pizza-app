@@ -5,8 +5,9 @@ import { RouterLink } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Store } from '@ngrx/store';
-import * as PizzasReducers from '../../_store/pizzas/reducers/pizzas.reducers';
-import * as PizzasActtions from '../../_store/pizzas/actions/pizzas.actions';
+import { ProductsState } from '../../_store/reducers';
+import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
+import * as PizzasActions from '../../_store/actions/pizzas.actions';
 
 import { PizzaItemComponent } from '../../components/pizza-item/pizza-item.component';
 
@@ -62,10 +63,10 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 export class ProductsComponent implements OnInit {
   pizzas$!: Observable<Pizza[]>;
 
-  private readonly store = inject(Store<PizzasReducers.ProductsState>);
+  private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
     this.pizzas$ = this.store.select(PizzasReducers.pizzasFeature.selectAll);
-    this.store.dispatch(PizzasActtions.loadPizzas());
+    this.store.dispatch(PizzasActions.loadPizzas());
   }
 }

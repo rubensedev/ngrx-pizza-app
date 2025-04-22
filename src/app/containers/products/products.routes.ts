@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 
-import * as PizzasReducers from '../../_store/pizzas/reducers/pizzas.reducers';
-import * as PizzasEffects from '../../_store/pizzas/effects/pizzas.effects';
+import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
+import * as PizzasEffects from '../../_store/effects/pizzas.effects';
 
 import { PizzasService } from '../../_services/pizzas.service';
 

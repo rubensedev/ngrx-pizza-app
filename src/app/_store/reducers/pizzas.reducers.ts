@@ -3,10 +3,8 @@ import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
 import * as PizzasActions from '../actions/pizzas.actions';
 
-import { Pizza } from '../../../_interfaces/pizza.interface';
-export interface ProductsState {
-  pizzas: PizzaState;
-}
+import { Pizza } from '../../_interfaces/pizza.interface';
+
 export interface PizzaState extends EntityState<Pizza> {
   loading: boolean;
   loaded: boolean;

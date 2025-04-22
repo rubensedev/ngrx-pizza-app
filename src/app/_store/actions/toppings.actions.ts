@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Topping } from '../../../_interfaces/topping.interface';
+import { Topping } from '../../_interfaces/topping.interface';
 
 export const loadTopppings = createAction('[Toppings] Load Toppings');
 
