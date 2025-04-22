@@ -24,3 +24,21 @@ export const loadPizzasEffects = createEffect(
   },
   { functional: true }
 );
+
+export const createPizzaEffects = createEffect(
+  () => {
+    const action$ = inject(Actions);
+    const pizzasService = inject(PizzasService);
+
+    return action$.pipe(
+      filter((action) => action.type === PizzasActions.createPizza.type),
+      switchMap(({ pizza }) =>
+        pizzasService.createPizza(pizza).pipe(
+          map((pizza) => PizzasActions.createPizzaSuccess({ pizza })),
+          catchError((error) => of(PizzasActions.createPizzaFail({ error })))
+        )
+      )
+    );
+  },
+  { functional: true }
+);

@@ -7,6 +7,7 @@ import { filter, Observable, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ProductsState } from '../../_store/reducers';
 import * as PizzasSelectors from '../../_store/selectors/pizzas.selectors';
+import * as PizzasActions from '../../_store/actions/pizzas.actions';
 import * as ToppingsActions from '../../_store/actions/toppings.actions';
 import * as ToppingsReducers from '../../_store/reducers/toppings.reducers';
 
@@ -64,7 +65,7 @@ export class ProductItemComponent implements OnInit {
       }),
       filter((pizza): pizza is Pizza => !!pizza)
     );
-    // Which one is better?
+    // TODO: Which one is better?
     // this.pizza$ = this.store.select(PizzasSelectors.selectPizza) as Observable<Pizza>;
 
     this.toppings$ = this.store.select(
@@ -81,7 +82,9 @@ export class ProductItemComponent implements OnInit {
     );
   }
 
-  onCreate(event: Pizza) {}
+  onCreate(event: Pizza) {
+    this.store.dispatch(PizzasActions.createPizza({ pizza: event }));
+  }
 
   onUpdate(event: Pizza) {}
 
