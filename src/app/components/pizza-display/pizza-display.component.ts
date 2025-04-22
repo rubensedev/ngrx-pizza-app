@@ -12,7 +12,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
     <div class="pizza-display">
       <div class="pizza-display__base">
         <img src="/assets/img/pizza.svg" />
-        @for (topping of pizza.toppings; let i = $index; track pizza.id) {
+        @for (topping of pizza?.toppings; let i = $index; track pizza?.id) {
         <img
           [src]="'/assets/img/toppings/' + topping.name + '.svg'"
           [style.zIndex]="i"
@@ -48,5 +48,5 @@ import { Pizza } from '../../_interfaces/pizza.interface';
   `,
 })
 export class PizzaDisplayComponent {
-  @Input({ required: true }) pizza!: Pizza;
+  @Input({ required: true }) pizza: Pizza | null = {};
 }

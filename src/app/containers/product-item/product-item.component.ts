@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
-import { filter, Observable } from 'rxjs';
+import { filter, Observable, tap } from 'rxjs';
 
 // Store
 import { Store } from '@ngrx/store';
@@ -30,7 +30,7 @@ import { Topping } from '../../_interfaces/topping.interface';
         (update)="onUpdate($event)"
         (remove)="onRemove($event)"
       >
-        <pizza-display [pizza]="visualise"></pizza-display>
+        <pizza-display [pizza]="visualise$ | async"></pizza-display>
       </pizza-form>
     </div>
   `,
@@ -46,26 +46,40 @@ import { Topping } from '../../_interfaces/topping.interface';
 })
 export class ProductItemComponent implements OnInit {
   pizza$!: Observable<Pizza>;
-  visualise: Pizza = {};
+  visualise$!: Observable<Pizza>;
   toppings$!: Observable<Topping[]>;
 
   private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
-    this.store.dispatch(ToppingsActions.loadTopppings());
-
-    this.pizza$ = this.store
-      .select(PizzasSelectors.selectPizza)
-      .pipe(filter((pizza): pizza is Pizza => !!pizza));
+    this.pizza$ = this.store.select(PizzasSelectors.selectPizza).pipe(
+      tap((pizza) => {
+        const toppingsIds: Topping['id'][] =
+          pizza?.toppings?.map((toppings) => toppings.id) ?? [];
+        this.store.dispatch(
+          ToppingsActions.visualiseToppings({
+            selectedToppingsIds: toppingsIds,
+          })
+        );
+      }),
+      filter((pizza): pizza is Pizza => !!pizza)
+    );
     // Which one is better?
     // this.pizza$ = this.store.select(PizzasSelectors.selectPizza) as Observable<Pizza>;
 
     this.toppings$ = this.store.select(
       ToppingsReducers.toppingsFeature.selectAll
     );
+    this.visualise$ = this.store.select(
+      PizzasSelectors.selectPizzaVisualised
+    ) as Observable<Pizza>;
   }
 
-  onSelect(event: Topping['id'][]) {}
+  onSelect(event: Topping['id'][]) {
+    this.store.dispatch(
+      ToppingsActions.visualiseToppings({ selectedToppingsIds: event })
+    );
+  }
 
   onCreate(event: Pizza) {}
 

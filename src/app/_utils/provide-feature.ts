@@ -1,10 +1,9 @@
 import { EnvironmentProviders } from '@angular/core';
-
 import { FeatureSlice, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 
-export function provideFeature<T = unknown>(
-  feature: FeatureSlice<T>,
+export function provideFeature(
+  features: FeatureSlice<any>[] | FeatureSlice<any>,
   options?: {
     effects?: any[];
     providers?: any[];
@@ -12,5 +11,8 @@ export function provideFeature<T = unknown>(
 ): EnvironmentProviders[] {
   const { effects = [], providers = [] } = options ?? {};
 
-  return [provideState(feature), provideEffects(effects), ...providers];
+  const featuresArray = Array.isArray(features) ? features : [features];
+  const stateProviders = featuresArray.map((feature) => provideState(feature));
+
+  return [...stateProviders, provideEffects(effects), ...providers];
 }

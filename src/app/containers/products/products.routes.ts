@@ -17,10 +17,16 @@ export const PRODUCTS_ROUTES: Routes = [
     pathMatch: 'full',
     providers: [
       provideHttpClient(),
-      provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [{ effect: PizzasEffects.loadPizzasEffects }],
-        providers: [PizzasService],
-      }),
+      provideFeature(
+        [PizzasReducers.pizzasFeature, ToppingsReducers.toppingsFeature],
+        {
+          effects: [
+            { effect: PizzasEffects.loadPizzasEffects },
+            { effect: ToppingsEffects.loadToppingsEffects },
+          ],
+          providers: [PizzasService, ToppingsService],
+        }
+      ),
     ],
     loadComponent: () =>
       import('./products.component').then((x) => x.ProductsComponent),
@@ -28,13 +34,6 @@ export const PRODUCTS_ROUTES: Routes = [
   // it's relative to the parent, so lazy-load the relative children
   {
     path: '',
-    providers: [
-      provideHttpClient(),
-      provideFeature(ToppingsReducers.toppingsFeature, {
-        effects: [{ effect: ToppingsEffects.loadToppingsEffects }],
-        providers: [ToppingsService],
-      }),
-    ],
     loadChildren: () =>
       import('../product-item/product-item.routes').then(
         (x) => x.PRODUCT_ITEM_ROUTES
