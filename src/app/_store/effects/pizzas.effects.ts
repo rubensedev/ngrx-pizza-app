@@ -7,7 +7,7 @@ import * as PizzasActions from '../actions/pizzas.actions';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
-export const loadPizzasEffects = createEffect(
+export const loadPizzasEffect = createEffect(
   () => {
     const actions$: Actions<ReturnType<typeof PizzasActions.loadPizzas>> =
       inject(Actions);
@@ -25,7 +25,7 @@ export const loadPizzasEffects = createEffect(
   { functional: true }
 );
 
-export const createPizzaEffects = createEffect(
+export const createPizzaEffect = createEffect(
   () => {
     const actions$: Actions<ReturnType<typeof PizzasActions.createPizza>> =
       inject(Actions);
@@ -34,7 +34,9 @@ export const createPizzaEffects = createEffect(
       filter((action) => action.type === PizzasActions.createPizza.type),
       switchMap(({ pizza }) =>
         pizzasService.createPizza(pizza).pipe(
-          map((pizza) => PizzasActions.createPizzaSuccess({ pizza })),
+          map((newPizza) =>
+            PizzasActions.createPizzaSuccess({ pizza: newPizza })
+          ),
           catchError((error) => of(PizzasActions.createPizzaFail({ error })))
         )
       )
@@ -43,7 +45,7 @@ export const createPizzaEffects = createEffect(
   { functional: true }
 );
 
-export const updatePizzaEffects = createEffect(
+export const updatePizzaEffect = createEffect(
   () => {
     const actions$: Actions<ReturnType<typeof PizzasActions.updatePizza>> =
       inject(Actions);
@@ -58,6 +60,24 @@ export const updatePizzaEffects = createEffect(
             })
           ),
           catchError((error) => of(PizzasActions.updatePizzaFail({ error })))
+        )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const deletePizzaEffect = createEffect(
+  () => {
+    const actions$: Actions<ReturnType<typeof PizzasActions.deletePizza>> =
+      inject(Actions);
+    const pizzasService = inject(PizzasService);
+    return actions$.pipe(
+      filter((action) => action.type === PizzasActions.deletePizza.type),
+      switchMap(({ pizza: deletedPizza }) =>
+        pizzasService.deletePizza(deletedPizza).pipe(
+          map(() => PizzasActions.deletePizzaSuccess({ pizza: deletedPizza })),
+          catchError((error) => of(PizzasActions.deletePizzaFail({ error })))
         )
       )
     );

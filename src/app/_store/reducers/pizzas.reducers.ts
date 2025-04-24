@@ -75,6 +75,15 @@ export const pizzasFeature = createFeature({
         loading: false,
         loaded: true,
       })
+    ),
+
+    // delete pizza
+    on(PizzasActions.deletePizzaSuccess, (state, { pizza }) =>
+      pizzaAdapter.removeOne(pizza.id as number, {
+        ...state,
+        loading: false,
+        loaded: true,
+      })
     )
   ),
 

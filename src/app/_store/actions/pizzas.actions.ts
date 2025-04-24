@@ -40,3 +40,17 @@ export const updatePizzaFail = createAction(
   '[Pizzas] Update Pizza Fail',
   props<{ error: any }>()
 );
+
+// Delete pizza
+export const deletePizza = createAction(
+  '[Pizzas] Delete Pizza',
+  props<{ pizza: Pizza }>()
+);
+export const deletePizzaSuccess = createAction(
+  '[Pizzas] Delete Pizza Success',
+  props<{ pizza: Pizza }>()
+);
+export const deletePizzaFail = createAction(
+  '[Pizzas] Delete Pizza Fail',
+  props<{ error: any }>()
+);

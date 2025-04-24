@@ -14,7 +14,7 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
     providers: [
       provideHttpClient(),
       provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [{ effect: PizzasEffects.createPizzaEffects }],
+        effects: [{ effect: PizzasEffects.createPizzaEffect }],
         providers: [PizzasService],
       }),
     ],
@@ -26,7 +26,10 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
     providers: [
       provideHttpClient(),
       provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [{ effect: PizzasEffects.updatePizzaEffects }],
+        effects: [
+          { effect: PizzasEffects.updatePizzaEffect },
+          { effect: PizzasEffects.deletePizzaEffect },
+        ],
         providers: [PizzasService],
       }),
     ],
