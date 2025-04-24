@@ -7,13 +7,14 @@ import * as ToppingsActions from '../actions/toppings.actions';
 
 import { ToppingsService } from '../../_services/toppings.service';
 
-export const loadToppingsEffects = createEffect(
+export const loadToppingsEffect = createEffect(
   () => {
-    const actions$ = inject(Actions);
+    const actions$: Actions<ReturnType<typeof ToppingsActions.loadToppings>> =
+      inject(Actions);
     const toppingsService = inject(ToppingsService);
 
     return actions$.pipe(
-      filter((action) => action.type === ToppingsActions.loadTopppings.type),
+      filter((action) => action.type === ToppingsActions.loadToppings.type),
       switchMap(() =>
         toppingsService.getToppings().pipe(
           map((toppings) => ToppingsActions.loadToppingsSuccesss({ toppings })),

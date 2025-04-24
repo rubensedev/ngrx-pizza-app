@@ -26,7 +26,7 @@ export const toppingsFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(ToppingsActions.loadTopppings, (state) => ({
+    on(ToppingsActions.loadToppings, (state) => ({
       ...state,
       loading: true,
     })),

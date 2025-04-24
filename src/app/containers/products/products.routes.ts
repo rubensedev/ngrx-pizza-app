@@ -21,8 +21,8 @@ export const PRODUCTS_ROUTES: Routes = [
         [PizzasReducers.pizzasFeature, ToppingsReducers.toppingsFeature],
         {
           effects: [
-            { effect: PizzasEffects.loadPizzasEffects },
-            { effect: ToppingsEffects.loadToppingsEffects },
+            { effect: PizzasEffects.loadPizzasEffect },
+            { effect: ToppingsEffects.loadToppingsEffect },
           ],
           providers: [PizzasService, ToppingsService],
         }

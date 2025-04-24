@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { Topping } from '../../_interfaces/topping.interface';
 
-export const loadTopppings = createAction('[Toppings] Load Toppings');
+export const loadToppings = createAction('[Toppings] Load Toppings');
 
 export const loadToppingsSuccesss = createAction(
   '[Toppings] Load Toppings Success',
