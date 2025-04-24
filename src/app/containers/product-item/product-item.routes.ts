@@ -23,6 +23,13 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
   },
   {
     path: ':pizzaId',
+    providers: [
+      provideHttpClient(),
+      provideFeature(PizzasReducers.pizzasFeature, {
+        effects: [{ effect: PizzasEffects.updatePizzaEffects }],
+        providers: [PizzasService],
+      }),
+    ],
     loadComponent: () =>
       import('./product-item.component').then((x) => x.ProductItemComponent),
   },

@@ -86,7 +86,13 @@ export class ProductItemComponent implements OnInit {
     this.store.dispatch(PizzasActions.createPizza({ pizza: event }));
   }
 
-  onUpdate(event: Pizza) {}
+  onUpdate(event: Pizza) {
+    this.store.dispatch(
+      PizzasActions.updatePizza({
+        update: { id: event.id as number, changes: event },
+      })
+    );
+  }
 
   onRemove(event: Pizza) {
     const remove = window.confirm('Are you sure?');

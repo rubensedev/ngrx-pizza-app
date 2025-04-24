@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Update } from '@ngrx/entity';
 import { Pizza } from '../../_interfaces/pizza.interface';
 
 // load pizzas
@@ -23,5 +24,19 @@ export const createPizzaSuccess = createAction(
 );
 export const createPizzaFail = createAction(
   '[Pizzas] Create Pizza Fail',
+  props<{ error: any }>()
+);
+
+// Update pizza
+export const updatePizza = createAction(
+  '[Pizzas] Update Pizza',
+  props<{ update: Update<Pizza> }>()
+);
+export const updatePizzaSuccess = createAction(
+  '[Pizzas] Update Pizza Success',
+  props<{ update: Update<Pizza> }>()
+);
+export const updatePizzaFail = createAction(
+  '[Pizzas] Update Pizza Fail',
   props<{ error: any }>()
 );
