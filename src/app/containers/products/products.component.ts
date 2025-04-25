@@ -67,8 +67,8 @@ export class ProductsComponent implements OnInit {
   private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
-    this.store.dispatch(PizzasActions.loadPizzas());
-    this.store.dispatch(ToppingsActions.loadToppings());
+    this.store.dispatch(PizzasActions.loadPizzasActions.load());
+    this.store.dispatch(ToppingsActions.loadToppingsActions.load());
     this.pizzas$ = this.store.select(PizzasReducers.pizzasFeature.selectAll);
   }
 }

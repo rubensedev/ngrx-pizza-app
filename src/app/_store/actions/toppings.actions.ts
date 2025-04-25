@@ -1,19 +1,21 @@
-import { createAction, props } from '@ngrx/store';
+import {
+  createAction,
+  createActionGroup,
+  emptyProps,
+  props,
+} from '@ngrx/store';
 import { Topping } from '../../_interfaces/topping.interface';
 
-export const loadToppings = createAction('[Toppings] Load Toppings');
+export const loadToppingsActions = createActionGroup({
+  source: 'Toppings/Load',
+  events: {
+    Load: emptyProps(),
+    Success: props<{ toppings: Topping[] }>(),
+    Failure: props<{ error: any }>(),
+  },
+});
 
-export const loadToppingsSuccesss = createAction(
-  '[Toppings] Load Toppings Success',
-  props<{ toppings: Topping[] }>()
-);
-
-export const loadToppingsFail = createAction(
-  '[Toppings] Load Toppings Fail',
-  props<{ error: any }>()
-);
-
-export const visualiseToppings = createAction(
-  '[Toppings] Visualise Toppings',
+export const visualiseToppingsAction = createAction(
+  '[Toppings/Visualise] Visualise',
   props<{ selectedToppingsIds: Topping['id'][] }>()
 );

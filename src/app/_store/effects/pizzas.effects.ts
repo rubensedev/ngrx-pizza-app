@@ -9,15 +9,20 @@ import { PizzasService } from '../../_services/pizzas.service';
 
 export const loadPizzasEffect = createEffect(
   () => {
-    const actions$: Actions<ReturnType<typeof PizzasActions.loadPizzas>> =
-      inject(Actions);
+    const actions$: Actions<
+      ReturnType<typeof PizzasActions.loadPizzasActions.load>
+    > = inject(Actions);
     const pizzasService = inject(PizzasService);
     return actions$.pipe(
-      filter((action) => action.type === PizzasActions.loadPizzas.type),
+      filter(
+        (action) => action.type === PizzasActions.loadPizzasActions.load.type
+      ),
       switchMap(() =>
         pizzasService.getPizzas().pipe(
-          map((pizzas) => PizzasActions.loadPizzasSuccess({ pizzas })),
-          catchError((error) => of(PizzasActions.loadPizzasFail({ error })))
+          map((pizzas) => PizzasActions.loadPizzasActions.success({ pizzas })),
+          catchError((error) =>
+            of(PizzasActions.loadPizzasActions.failure({ error }))
+          )
         )
       )
     );
@@ -27,17 +32,22 @@ export const loadPizzasEffect = createEffect(
 
 export const createPizzaEffect = createEffect(
   () => {
-    const actions$: Actions<ReturnType<typeof PizzasActions.createPizza>> =
-      inject(Actions);
+    const actions$: Actions<
+      ReturnType<typeof PizzasActions.createPizzaActions.create>
+    > = inject(Actions);
     const pizzasService = inject(PizzasService);
     return actions$.pipe(
-      filter((action) => action.type === PizzasActions.createPizza.type),
+      filter(
+        (action) => action.type === PizzasActions.createPizzaActions.create.type
+      ),
       switchMap(({ pizza }) =>
         pizzasService.createPizza(pizza).pipe(
           map((newPizza) =>
-            PizzasActions.createPizzaSuccess({ pizza: newPizza })
+            PizzasActions.createPizzaActions.success({ pizza: newPizza })
           ),
-          catchError((error) => of(PizzasActions.createPizzaFail({ error })))
+          catchError((error) =>
+            of(PizzasActions.createPizzaActions.failure({ error }))
+          )
         )
       )
     );
@@ -47,19 +57,24 @@ export const createPizzaEffect = createEffect(
 
 export const updatePizzaEffect = createEffect(
   () => {
-    const actions$: Actions<ReturnType<typeof PizzasActions.updatePizza>> =
-      inject(Actions);
+    const actions$: Actions<
+      ReturnType<typeof PizzasActions.updatePizzaActions.update>
+    > = inject(Actions);
     const pizzasService = inject(PizzasService);
     return actions$.pipe(
-      filter((action) => action.type === PizzasActions.updatePizza.type),
+      filter(
+        (action) => action.type === PizzasActions.updatePizzaActions.update.type
+      ),
       switchMap(({ update }) =>
         pizzasService.updatePizza(update.changes).pipe(
           map((updatedPizza) =>
-            PizzasActions.updatePizzaSuccess({
+            PizzasActions.updatePizzaActions.success({
               update: { id: updatedPizza.id as number, changes: updatedPizza },
             })
           ),
-          catchError((error) => of(PizzasActions.updatePizzaFail({ error })))
+          catchError((error) =>
+            of(PizzasActions.updatePizzaActions.failure({ error }))
+          )
         )
       )
     );
@@ -69,15 +84,22 @@ export const updatePizzaEffect = createEffect(
 
 export const deletePizzaEffect = createEffect(
   () => {
-    const actions$: Actions<ReturnType<typeof PizzasActions.deletePizza>> =
-      inject(Actions);
+    const actions$: Actions<
+      ReturnType<typeof PizzasActions.deletePizzaActions.delete>
+    > = inject(Actions);
     const pizzasService = inject(PizzasService);
     return actions$.pipe(
-      filter((action) => action.type === PizzasActions.deletePizza.type),
+      filter(
+        (action) => action.type === PizzasActions.deletePizzaActions.delete.type
+      ),
       switchMap(({ pizza: deletedPizza }) =>
         pizzasService.deletePizza(deletedPizza).pipe(
-          map(() => PizzasActions.deletePizzaSuccess({ pizza: deletedPizza })),
-          catchError((error) => of(PizzasActions.deletePizzaFail({ error })))
+          map(() =>
+            PizzasActions.deletePizzaActions.success({ pizza: deletedPizza })
+          ),
+          catchError((error) =>
+            of(PizzasActions.deletePizzaActions.failure({ error }))
+          )
         )
       )
     );

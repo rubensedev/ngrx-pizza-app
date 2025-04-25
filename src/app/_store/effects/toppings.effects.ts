@@ -9,16 +9,24 @@ import { ToppingsService } from '../../_services/toppings.service';
 
 export const loadToppingsEffect = createEffect(
   () => {
-    const actions$: Actions<ReturnType<typeof ToppingsActions.loadToppings>> =
-      inject(Actions);
+    const actions$: Actions<
+      ReturnType<typeof ToppingsActions.loadToppingsActions.load>
+    > = inject(Actions);
     const toppingsService = inject(ToppingsService);
 
     return actions$.pipe(
-      filter((action) => action.type === ToppingsActions.loadToppings.type),
+      filter(
+        (action) =>
+          action.type === ToppingsActions.loadToppingsActions.load.type
+      ),
       switchMap(() =>
         toppingsService.getToppings().pipe(
-          map((toppings) => ToppingsActions.loadToppingsSuccesss({ toppings })),
-          catchError((error) => of(ToppingsActions.loadToppingsFail({ error })))
+          map((toppings) =>
+            ToppingsActions.loadToppingsActions.success({ toppings })
+          ),
+          catchError((error) =>
+            of(ToppingsActions.loadToppingsActions.failure({ error }))
+          )
         )
       )
     );

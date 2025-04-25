@@ -26,9 +26,9 @@ export const pizzasFeature = createFeature({
 
     // common
     on(
-      PizzasActions.loadPizzas,
-      PizzasActions.createPizza,
-      PizzasActions.updatePizza,
+      PizzasActions.loadPizzasActions.load,
+      PizzasActions.createPizzaActions.create,
+      PizzasActions.updatePizzaActions.update,
       (state) => ({
         ...state,
         loading: true,
@@ -38,9 +38,9 @@ export const pizzasFeature = createFeature({
 
     // common - FAIL
     on(
-      PizzasActions.loadPizzasFail,
-      PizzasActions.createPizzaFail,
-      PizzasActions.updatePizzaFail,
+      PizzasActions.loadPizzasActions.failure,
+      PizzasActions.createPizzaActions.failure,
+      PizzasActions.updatePizzaActions.failure,
       (state, { error }) => ({
         ...state,
         loading: false,
@@ -50,7 +50,7 @@ export const pizzasFeature = createFeature({
     ),
 
     // load pizzas
-    on(PizzasActions.loadPizzasSuccess, (state, { pizzas }) =>
+    on(PizzasActions.loadPizzasActions.success, (state, { pizzas }) =>
       pizzaAdapter.setAll(pizzas, {
         ...state,
         loading: false,
@@ -59,7 +59,7 @@ export const pizzasFeature = createFeature({
     ),
 
     // create pizza
-    on(PizzasActions.createPizzaSuccess, (state, { pizza }) =>
+    on(PizzasActions.createPizzaActions.success, (state, { pizza }) =>
       // TODO: setOne or addOne
       pizzaAdapter.setOne(pizza, {
         ...state,
@@ -69,7 +69,7 @@ export const pizzasFeature = createFeature({
     ),
 
     // update pizza
-    on(PizzasActions.updatePizzaSuccess, (state, { update }) =>
+    on(PizzasActions.updatePizzaActions.success, (state, { update }) =>
       pizzaAdapter.updateOne(update, {
         ...state,
         loading: false,
@@ -78,7 +78,7 @@ export const pizzasFeature = createFeature({
     ),
 
     // delete pizza
-    on(PizzasActions.deletePizzaSuccess, (state, { pizza }) =>
+    on(PizzasActions.deletePizzaActions.success, (state, { pizza }) =>
       pizzaAdapter.removeOne(pizza.id as number, {
         ...state,
         loading: false,

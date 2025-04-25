@@ -26,12 +26,12 @@ export const toppingsFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(ToppingsActions.loadToppings, (state) => ({
+    on(ToppingsActions.loadToppingsActions.load, (state) => ({
       ...state,
       loading: true,
     })),
 
-    on(ToppingsActions.loadToppingsSuccesss, (state, { toppings }) =>
+    on(ToppingsActions.loadToppingsActions.success, (state, { toppings }) =>
       toppingAdapter.setAll(toppings, {
         ...state,
         loading: false,
@@ -39,17 +39,20 @@ export const toppingsFeature = createFeature({
       })
     ),
 
-    on(ToppingsActions.loadToppingsFail, (state, { error }) => ({
+    on(ToppingsActions.loadToppingsActions.failure, (state, { error }) => ({
       ...state,
       loading: false,
       loaded: false,
       error,
     })),
 
-    on(ToppingsActions.visualiseToppings, (state, { selectedToppingsIds }) => ({
-      ...state,
-      selectedToppingsIds,
-    }))
+    on(
+      ToppingsActions.visualiseToppingsAction,
+      (state, { selectedToppingsIds }) => ({
+        ...state,
+        selectedToppingsIds,
+      })
+    )
   ),
 
   extraSelectors: ({ selectToppingsState }) => ({
