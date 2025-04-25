@@ -4,6 +4,7 @@ import { catchError, filter, map, of, switchMap } from 'rxjs';
 
 import { Actions, createEffect } from '@ngrx/effects';
 import * as PizzasActions from '../actions/pizzas.actions';
+import * as RouterActions from '../router/actions/router.actions';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
@@ -49,6 +50,26 @@ export const createPizzaEffect = createEffect(
             of(PizzasActions.createPizzaActions.failure({ error }))
           )
         )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const createPizzaSuccessEffect = createEffect(
+  () => {
+    const actions$: Actions<
+      ReturnType<typeof PizzasActions.createPizzaActions.success>
+    > = inject(Actions);
+    return actions$.pipe(
+      filter(
+        (action) =>
+          action.type === PizzasActions.createPizzaActions.success.type
+      ),
+      map(({ pizza }) =>
+        RouterActions.routerNavigateActions.go({
+          path: ['/products', pizza.id],
+        })
       )
     );
   },
@@ -101,6 +122,28 @@ export const deletePizzaEffect = createEffect(
             of(PizzasActions.deletePizzaActions.failure({ error }))
           )
         )
+      )
+    );
+  },
+  { functional: true }
+);
+
+export const handlePizzaSuccessEffect = createEffect(
+  () => {
+    const actions$: Actions<
+      | ReturnType<typeof PizzasActions.updatePizzaActions.success>
+      | ReturnType<typeof PizzasActions.deletePizzaActions.success>
+    > = inject(Actions);
+    return actions$.pipe(
+      filter(
+        (action) =>
+          action.type === PizzasActions.updatePizzaActions.success.type ||
+          action.type === PizzasActions.deletePizzaActions.success.type
+      ),
+      map(() =>
+        RouterActions.routerNavigateActions.go({
+          path: ['/products'],
+        })
       )
     );
   },

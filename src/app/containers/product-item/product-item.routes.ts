@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 
 import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
 import * as PizzasEffects from '../../_store/effects/pizzas.effects';
+import * as RouterEffects from '../../_store/router/effects/router.effects';
 
 import { PizzasService } from '../../_services/pizzas.service';
 
@@ -14,7 +15,11 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
     providers: [
       provideHttpClient(),
       provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [{ effect: PizzasEffects.createPizzaEffect }],
+        effects: [
+          { effect: PizzasEffects.createPizzaEffect },
+          { effect: PizzasEffects.createPizzaSuccessEffect },
+          { effect: RouterEffects.routerNavigateEffect },
+        ],
         providers: [PizzasService],
       }),
     ],
@@ -29,6 +34,8 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
         effects: [
           { effect: PizzasEffects.updatePizzaEffect },
           { effect: PizzasEffects.deletePizzaEffect },
+          { effect: PizzasEffects.handlePizzaSuccessEffect },
+          { effect: RouterEffects.routerNavigateEffect },
         ],
         providers: [PizzasService],
       }),
