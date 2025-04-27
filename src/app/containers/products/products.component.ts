@@ -7,7 +7,6 @@ import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ProductsState } from '../../_store/reducers';
 import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
-import * as ToppingsActions from '../../_store/actions/toppings.actions';
 
 import { PizzaItemComponent } from '../../components/pizza-item/pizza-item.component';
 
@@ -66,7 +65,6 @@ export class ProductsComponent implements OnInit {
   private readonly store = inject(Store<ProductsState>);
 
   ngOnInit(): void {
-    this.store.dispatch(ToppingsActions.loadToppingsActions.load());
     this.pizzas$ = this.store.select(PizzasReducers.pizzasFeature.selectAll);
   }
 }

@@ -1,51 +1,57 @@
-import { provideHttpClient } from '@angular/common/http';
 import { Routes } from '@angular/router';
 
 import * as PizzasReducers from '../../_store/reducers/pizzas.reducers';
 import * as PizzasEffects from '../../_store/effects/pizzas.effects';
-import * as RouterEffects from '../../_store/router/effects/router.effects';
+import * as ToppingsReducers from '../../_store/reducers/toppings.reducers';
+import * as ToppingsEffects from '../../_store/effects/toppings.effects';
 
+// Services
 import { PizzasService } from '../../_services/pizzas.service';
+import { ToppingsService } from '../../_services/toppings.service';
 
+// Guards
 import { loadPizzasGuard } from '../../_guards/loadPizzas.guard';
+import { loadToppingsGuard } from '../../_guards/loadToppings.guard';
+import { pizzaExistsGuard } from '../../_guards/pizzaExists.guard';
 
 import { provideFeature } from '../../_utils';
-import { pizzaExistsGuard } from '../../_guards/pizzaExists.guard';
 
 export const PRODUCT_ITEM_ROUTES: Routes = [
   {
     path: 'new',
-    canActivate: [loadPizzasGuard],
+    canActivate: [loadPizzasGuard, loadToppingsGuard],
     providers: [
-      provideHttpClient(),
-      provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [
-          { effect: PizzasEffects.loadPizzasEffect },
-          { effect: PizzasEffects.createPizzaEffect },
-          { effect: PizzasEffects.createPizzaSuccessEffect },
-          { effect: RouterEffects.routerNavigateEffect },
-        ],
-        providers: [PizzasService],
-      }),
+      provideFeature(
+        [PizzasReducers.pizzasFeature, ToppingsReducers.toppingsFeature],
+        {
+          effects: [
+            { effect: PizzasEffects.createPizzaEffect },
+            { effect: PizzasEffects.createPizzaSuccessEffect },
+            { effect: ToppingsEffects.loadToppingsEffect },
+          ],
+          providers: [PizzasService, ToppingsService],
+        }
+      ),
     ],
     loadComponent: () =>
       import('./product-item.component').then((x) => x.ProductItemComponent),
   },
   {
     path: ':pizzaId',
-    canActivate: [pizzaExistsGuard],
+    canActivate: [pizzaExistsGuard, loadToppingsGuard],
     providers: [
-      provideHttpClient(),
-      provideFeature(PizzasReducers.pizzasFeature, {
-        effects: [
-          { effect: PizzasEffects.loadPizzasEffect },
-          { effect: PizzasEffects.updatePizzaEffect },
-          { effect: PizzasEffects.deletePizzaEffect },
-          { effect: PizzasEffects.handlePizzaSuccessEffect },
-          { effect: RouterEffects.routerNavigateEffect },
-        ],
-        providers: [PizzasService],
-      }),
+      provideFeature(
+        [PizzasReducers.pizzasFeature, ToppingsReducers.toppingsFeature],
+        {
+          effects: [
+            { effect: PizzasEffects.updatePizzaEffect },
+            { effect: PizzasEffects.deletePizzaEffect },
+            { effect: PizzasEffects.handlePizzaSuccessEffect },
+            { effect: ToppingsEffects.loadToppingsEffect },
+          ],
+          providers: [PizzasService, ToppingsService],
+        }
+      ),
     ],
     loadComponent: () =>
       import('./product-item.component').then((x) => x.ProductItemComponent),
