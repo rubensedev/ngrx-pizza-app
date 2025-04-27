@@ -10,6 +10,7 @@ import { PizzasService } from '../../_services/pizzas.service';
 import { loadPizzasGuard } from '../../_guards/loadPizzas.guard';
 
 import { provideFeature } from '../../_utils';
+import { pizzaExistsGuard } from '../../_guards/pizzaExists.guard';
 
 export const PRODUCT_ITEM_ROUTES: Routes = [
   {
@@ -32,10 +33,12 @@ export const PRODUCT_ITEM_ROUTES: Routes = [
   },
   {
     path: ':pizzaId',
+    canActivate: [pizzaExistsGuard],
     providers: [
       provideHttpClient(),
       provideFeature(PizzasReducers.pizzasFeature, {
         effects: [
+          { effect: PizzasEffects.loadPizzasEffect },
           { effect: PizzasEffects.updatePizzaEffect },
           { effect: PizzasEffects.deletePizzaEffect },
           { effect: PizzasEffects.handlePizzaSuccessEffect },
