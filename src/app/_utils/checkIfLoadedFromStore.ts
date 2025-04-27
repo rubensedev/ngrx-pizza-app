@@ -3,17 +3,18 @@ import { inject } from '@angular/core';
 import { filter, Observable, take, tap } from 'rxjs';
 
 // ngrx - store
-import { Store } from '@ngrx/store';
+import { Action, Store } from '@ngrx/store';
 import { ProductsState } from '../_store/reducers';
-import * as PizzasReducers from '../_store/reducers/pizzas.reducers';
-import * as PizzasActions from '../_store/actions/pizzas.actions';
 
-export const checkPizzasLoadedFromStore = (): Observable<boolean> => {
+export const checkIfLoadedFromStore = (
+  selector: (state: ProductsState) => boolean,
+  action: () => Action<string>
+): Observable<boolean> => {
   const store = inject(Store<ProductsState>);
-  return store.select(PizzasReducers.pizzasFeature.selectLoaded).pipe(
+  return store.select(selector).pipe(
     tap((loaded) => {
       if (!loaded) {
-        store.dispatch(PizzasActions.loadPizzasActions.load());
+        store.dispatch(action());
       }
     }),
     // we wait to loaded is 'true' and then take 1 value and finishe with complete and 'unsuscribe'

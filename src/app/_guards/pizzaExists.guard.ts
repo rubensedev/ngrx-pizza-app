@@ -8,9 +8,10 @@ import { Store } from '@ngrx/store';
 import { Dictionary } from '@ngrx/entity';
 import { ProductsState } from '../_store/reducers';
 import * as PizzasReducers from '../_store/reducers/pizzas.reducers';
+import * as PizzasActions from '../_store/actions/pizzas.actions';
 import * as RouterActions from '../_store/router/actions/router.actions';
 
-import { checkPizzasLoadedFromStore } from '../_utils';
+import { checkIfLoadedFromStore } from '../_utils';
 
 import { Pizza } from '../_interfaces/pizza.interface';
 
@@ -32,7 +33,10 @@ export const pizzaExistsGuard: CanActivateFn = (route) => {
     return of(false);
   };
 
-  return checkPizzasLoadedFromStore().pipe(
+  return checkIfLoadedFromStore(
+    PizzasReducers.pizzasFeature.selectLoaded,
+    PizzasActions.loadPizzasActions.load
+  ).pipe(
     switchMap(() => hasPizza()),
     switchMap((exists) => (exists ? of(true) : redirectToProducts()))
   );
