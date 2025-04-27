@@ -9,12 +9,15 @@ import * as ToppingsEffects from '../../_store/effects/toppings.effects';
 import { PizzasService } from '../../_services/pizzas.service';
 import { ToppingsService } from '../../_services/toppings.service';
 
+import { loadPizzasGuard } from '../../_guards/loadPizzas.guard';
+
 import { provideFeature } from '../../_utils';
 
 export const PRODUCTS_ROUTES: Routes = [
   {
     path: '',
     pathMatch: 'full',
+    canActivate: [loadPizzasGuard],
     providers: [
       provideHttpClient(),
       provideFeature(
