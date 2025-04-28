@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 
 import { filter, Observable, tap } from 'rxjs';
@@ -20,6 +25,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 import { Topping } from '../../_interfaces/topping.interface';
 @Component({
   selector: 'product-item',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [AsyncPipe, PizzaFormComponent, PizzaDisplayComponent],
   template: `
     <div class="product-item">

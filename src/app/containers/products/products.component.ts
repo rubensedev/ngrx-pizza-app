@@ -1,4 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -14,6 +19,7 @@ import { Pizza } from '../../_interfaces/pizza.interface';
 
 @Component({
   selector: 'products',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, AsyncPipe, PizzaItemComponent],
   template: `
     <div class="products">
