@@ -29,6 +29,7 @@ export const pizzasFeature = createFeature({
       PizzasActions.loadPizzasActions.load,
       PizzasActions.createPizzaActions.create,
       PizzasActions.updatePizzaActions.update,
+      PizzasActions.deletePizzaActions.delete,
       (state) => ({
         ...state,
         loading: true,
@@ -41,6 +42,7 @@ export const pizzasFeature = createFeature({
       PizzasActions.loadPizzasActions.failure,
       PizzasActions.createPizzaActions.failure,
       PizzasActions.updatePizzaActions.failure,
+      PizzasActions.deletePizzaActions.failure,
       (state, { error }) => ({
         ...state,
         loading: false,
