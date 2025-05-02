@@ -9,11 +9,12 @@ import * as RouterActions from '../router/actions/router.actions';
 import { PizzasService } from '../../_services/pizzas.service';
 
 export const loadPizzasEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof PizzasActions.loadPizzasActions.load>
-    > = inject(Actions);
-    const pizzasService = inject(PizzasService);
+    > = inject(Actions),
+    pizzasService = inject(PizzasService)
+  ) => {
     return actions$.pipe(
       filter(
         (action) => action.type === PizzasActions.loadPizzasActions.load.type
@@ -32,11 +33,12 @@ export const loadPizzasEffect = createEffect(
 );
 
 export const createPizzaEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof PizzasActions.createPizzaActions.create>
-    > = inject(Actions);
-    const pizzasService = inject(PizzasService);
+    > = inject(Actions),
+    pizzasService = inject(PizzasService)
+  ) => {
     return actions$.pipe(
       filter(
         (action) => action.type === PizzasActions.createPizzaActions.create.type
@@ -57,10 +59,11 @@ export const createPizzaEffect = createEffect(
 );
 
 export const createPizzaSuccessEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof PizzasActions.createPizzaActions.success>
-    > = inject(Actions);
+    > = inject(Actions)
+  ) => {
     return actions$.pipe(
       filter(
         (action) =>
@@ -77,11 +80,12 @@ export const createPizzaSuccessEffect = createEffect(
 );
 
 export const updatePizzaEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof PizzasActions.updatePizzaActions.update>
-    > = inject(Actions);
-    const pizzasService = inject(PizzasService);
+    > = inject(Actions),
+    pizzasService = inject(PizzasService)
+  ) => {
     return actions$.pipe(
       filter(
         (action) => action.type === PizzasActions.updatePizzaActions.update.type
@@ -104,11 +108,12 @@ export const updatePizzaEffect = createEffect(
 );
 
 export const deletePizzaEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof PizzasActions.deletePizzaActions.delete>
-    > = inject(Actions);
-    const pizzasService = inject(PizzasService);
+    > = inject(Actions),
+    pizzasService = inject(PizzasService)
+  ) => {
     return actions$.pipe(
       filter(
         (action) => action.type === PizzasActions.deletePizzaActions.delete.type
@@ -129,11 +134,12 @@ export const deletePizzaEffect = createEffect(
 );
 
 export const handlePizzaSuccessEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       | ReturnType<typeof PizzasActions.updatePizzaActions.success>
       | ReturnType<typeof PizzasActions.deletePizzaActions.success>
-    > = inject(Actions);
+    > = inject(Actions)
+  ) => {
     return actions$.pipe(
       filter(
         (action) =>

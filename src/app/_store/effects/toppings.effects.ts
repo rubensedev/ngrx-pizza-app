@@ -8,12 +8,12 @@ import * as ToppingsActions from '../actions/toppings.actions';
 import { ToppingsService } from '../../_services/toppings.service';
 
 export const loadToppingsEffect = createEffect(
-  () => {
-    const actions$: Actions<
+  (
+    actions$: Actions<
       ReturnType<typeof ToppingsActions.loadToppingsActions.load>
-    > = inject(Actions);
-    const toppingsService = inject(ToppingsService);
-
+    > = inject(Actions),
+    toppingsService = inject(ToppingsService)
+  ) => {
     return actions$.pipe(
       filter(
         (action) =>
