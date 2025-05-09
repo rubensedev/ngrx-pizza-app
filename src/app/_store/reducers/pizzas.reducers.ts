@@ -62,7 +62,6 @@ export const pizzasFeature = createFeature({
 
     // create pizza
     on(PizzasActions.createPizzaActions.success, (state, { pizza }) =>
-      // TODO: setOne or addOne
       pizzaAdapter.setOne(pizza, {
         ...state,
         loading: false,

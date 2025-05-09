@@ -42,7 +42,7 @@ describe('Toppings Effects', () => {
       const toppingsServiceMock: Partial<ToppingsService> = {
         getToppings: () => throwError(() => error),
       };
-      // TODO: which approach is better
+      // Jasmin approach
       // const toppingsServiceMock = jasmine.createSpyObj<ToppingsService>(
       //   'ToppingsService',
       //   ['getToppings']

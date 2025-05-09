@@ -71,8 +71,6 @@ export class ProductItemComponent implements OnInit {
       }),
       filter((pizza): pizza is Pizza => !!pizza)
     );
-    // TODO: Which one is better?
-    // this.pizza$ = this.store.select(PizzasSelectors.selectPizza) as Observable<Pizza>;
 
     this.toppings$ = this.store.select(
       ToppingsReducers.toppingsFeature.selectAll
