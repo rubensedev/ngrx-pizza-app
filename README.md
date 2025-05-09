@@ -1,6 +1,6 @@
 # 🍕 NgRx Pizza App
 
-This project is part of the [**NgRx course by Ultimate Courses**](https://ultimatecourses.com/learn/ngrx-store-effects), taught by Todd Motto. It demonstrates how to manage application state using **NgRx**, including Store, Effects, and Router Store.  
+This project is part of the [**NgRx course by Ultimate Courses**](https://ultimatecourses.com/learn/ngrx-store-effects), taught by Todd Motto. It demonstrates how to manage application state using **NgRx**, including Store, Effects, and Router Store.  It also includes unit tests for actions, effects, reducers and selectors.
 Originally developed using Angular **v5.0.3**, this version has been **updated and adapted to Angular v19.2.6**, along with the **latest versions of NgRx**.
 
 ## 🚀 Features
